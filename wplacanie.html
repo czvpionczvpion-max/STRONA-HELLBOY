@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="./image.svg" />
+    <title>JAK WPŁACIĆ - CIOS REKOMENDACJE</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #000;
+        }
+
+       /* Liquid Navbar */
+        .liquid-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.432);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .liquid-nav.scrolled {
+            background: rgba(0, 0, 0, 0.432);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0);
+            border-bottom: 1px solid rgba(0, 255, 34, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 90px;
+        }
+
+        /* Liquid Logo */
+        .liquid-logo {
+            position: relative;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 10px 20px;
+            overflow: hidden;
+            border-radius: 15px;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.041) 50%, transparent 70%);
+            background-size: 200% 100%;
+            animation: liquid-shine 3s infinite linear;
+            transition: all 0.3s ease;
+        }
+
+        .liquid-logo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(2, 78, 15, 0.4);
+        }
+
+        @keyframes liquid-shine {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* Liquid Menu */
+        .liquid-menu {
+            display: flex;
+            list-style: none;
+            gap: 5px;
+            padding: 5px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            margin-left: 20px;
+        }
+
+        .liquid-menu::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.041), 
+                transparent);
+            animation: liquid-flow 4s infinite linear;
+        }
+
+        @keyframes liquid-flow {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .liquid-menu li {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .liquid-menu li a {
+            position: relative;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            padding: 12px 25px;
+            display: block;
+            border-radius: 15px;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .liquid-menu li a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(0, 0, 0, 0.1), 
+                transparent);
+            transition: left 0.5s ease;
+        }
+
+        .liquid-menu li a:hover::before {
+            left: 100%;
+        }
+
+        .liquid-menu li a:hover {
+            color: white;
+            background: rgba(31, 46, 33, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(32, 56, 38, 0.3);
+        }
+
+        .liquid-menu li a.active {
+            background: linear-gradient(135deg, #6b9d7d, #527960);
+            color: white;
+            box-shadow: 0 5px 20px rgba(107, 157, 125, 0.4);
+        }
+
+        /* Liquid Hamburger */
+        .liquid-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 10px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .liquid-hamburger:hover {
+            background: rgba(107, 157, 125, 0.2);
+            transform: scale(1.05);
+        }
+
+        .liquid-hamburger span {
+            width: 25px;
+            height: 2px;
+            background: linear-gradient(90deg, #ffffff, #d9e0dc);
+            border-radius: 2px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Liquid Mobile Menu */
+        @media (max-width: 992px) {
+            .liquid-hamburger {
+                display: flex;
+            }
+
+            .liquid-menu {
+                position: fixed;
+                top: 80px;
+                left: 50%;
+                transform: translateX(-50%) translateY(-100%);
+                width: 90%;
+                max-width: 400px;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.95);
+                backdrop-filter: blur(20px);
+                border: 1px solid rgba(0, 24, 4, 0.2);
+                border-radius: 25px;
+                padding: 20px;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            }
+
+            .liquid-menu.active {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .liquid-menu li a {
+                padding: 15px 20px;
+                margin: 5px 0;
+                text-align: center;
+                border-radius: 15px;
+            }
+
+            /* Liquid Hamburger Animation */
+            .liquid-hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(6px, 6px);
+                background: linear-gradient(90deg, #ffffff, #ffffff);
+            }
+
+            .liquid-hamburger.active span:nth-child(2) {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            .liquid-hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(6px, -6px);
+                background: linear-gradient(90deg, #ffffff, #ffffff);
+            }
+        }
+
+        .main {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url("./background.png");
+            background-size: cover;
+            padding-top: 60px; /* Dodajemy padding aby zawartość nie była przykryta przez navbar */
+        }
+
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 60vh;
+            justify-content: center;
+        }
+        .card {
+            background: rgba(59, 59, 59, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            width: 200px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            outline: #4e6d2a 1px solid;
+            box-shadow: 0px 0px 20px 0px rgba(78, 109, 42, 0.5);
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .card h2 {
+            color: white;
+            margin: 10px 0;
+        }
+        .card p {
+            color: white;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                width: 140px;
+            }
+
+            .cards {
+                margin-top: 30vh;
+            }
+            
+            .main {
+                padding-top: 60px; /* Upewniamy się, że na mobile też jest padding */
+            }
+
+            .main {
+                background-image: url("./mobile_bg.png");
+                background-position: center;
+            }
+        }
+
+        .about {
+            width: 100%;
+            background: #1a1a1a;
+            text-align: center;
+        }
+
+        .socials {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 35px;
+        }
+
+        @keyframes liquid-text {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        footer {
+            background-image: url("./footer_bg.png");
+            background-position: center top;
+            background-size: 100% auto;
+            color: #888;
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            border-top: #466852 1px solid;
+            box-shadow: 0px -5px 50px 0px rgb(58, 88, 64);
+        }
+
+        .nvcasino {
+            background-image: url("./nvcasino.png");
+        }
+
+        .bonus-box {
+            border-radius: 15px;
+            padding: 10px;
+            background: rgba(59, 121, 87, 0.1);
+            border: 1px solid rgba(69, 141, 81, 0.2);
+            font-weight: 900;
+        }
+
+        .bonus-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 6px;
+            padding: 7px 28px;
+            background: linear-gradient(135deg, #244626 0%, #4e6d2a 50%, #6b9d7d 100%);
+            background-size: 200% auto;
+            color: white;
+            text-decoration: none;
+            border-radius: 24px;
+            font-weight: 800;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(107, 157, 125, 0.3);
+        }
+
+        .bonus-button:hover {
+            background-position: right center;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(107, 157, 125, 0.4);
+        }
+
+        .bonus-button:active {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 10px rgba(107, 157, 125, 0.3);
+        }
+
+        .bonus-button:hover::after {
+            opacity: 1;
+            transform: rotate(20deg);
+        }
+
+        .bonus-description {
+            color: #ccc;
+            font-size: 14px;
+            margin-top: -10px;
+            font-weight: 400;
+        }
+
+    .instructions-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        padding-top: 100px;
+    }
+
+    .hero-section {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 2rem;
+        background: rgba(19, 19, 19, 0.7);
+        border-radius: 20px;
+        border: 2px solid #527960;
+    }
+
+    .hero-section h1 {
+        font-size: 2.5rem;
+        color: white;
+        margin-bottom: 1rem;
+        background: linear-gradient(to right, #6b9d7d, #4e6d2a);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .intro-text {
+        color: #ccc;
+        font-size: 1.2rem;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .content-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    @media (min-width: 992px) {
+        .content-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    .section-card {
+        background: rgba(19, 19, 19, 0.8);
+        border-radius: 20px;
+        padding: 2rem;
+        border: 2px solid #527960;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+        color: white;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #527960;
+    }
+
+    .method-box {
+        background: rgba(31, 46, 33, 0.3);
+        border-radius: 15px;
+        padding: 1.2rem;
+        margin-bottom: 1rem;
+        border-left: 4px solid #527960;
+    }
+
+    .method-box h3 {
+        color: #6b9d7d;
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .method-box p {
+        color: #ccc;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .fee-label {
+        display: inline-block;
+        background: rgba(107, 157, 125, 0.2);
+        color: #6b9d7d;
+        padding: 0.3rem 0.8rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-top: 0.5rem;
+        border: 1px solid rgba(107, 157, 125, 0.3);
+    }
+
+    .warning {
+        background: rgba(184, 134, 11, 0.15);
+        border-left: 4px solid #b8860b;
+        padding: 1rem;
+        border-radius: 10px;
+        margin-top: 1.5rem;
+        color: #ffd700;
+    }
+
+    .info-box {
+        background: rgba(31, 46, 33, 0.4);
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin-top: 1.5rem;
+        border: 1px solid #527960;
+    }
+
+    .info-box h4 {
+        color: #6b9d7d;
+        margin-bottom: 1rem;
+    }
+
+    .info-box p {
+        color: #ccc;
+        margin-bottom: 0.8rem;
+        line-height: 1.5;
+    }
+
+    .tip {
+        color: #ffd700 !important;
+        font-style: italic;
+        font-size: 0.9rem;
+        padding: 0.5rem;
+        background: rgba(184, 134, 11, 0.1);
+        border-radius: 8px;
+    }
+
+    .important-card {
+        grid-column: 1 / -1;
+        background: rgba(19, 19, 19, 0.9);
+        border-radius: 20px;
+        padding: 2rem;
+        border: 2px solid #b8860b;
+        margin-top: 1rem;
+    }
+
+    .important-card h2 {
+        color: #ffd700;
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .important-card ul {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .important-card li {
+        color: #ccc;
+        margin-bottom: 1rem;
+        padding-left: 2rem;
+        position: relative;
+        line-height: 1.5;
+    }
+
+    .important-card li:before {
+        content: "⚠️";
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    @media (max-width: 768px) {
+        .instructions-container {
+            padding: 1rem;
+            padding-top: 80px;
+        }
+        
+        .hero-section h1 {
+            font-size: 2rem;
+        }
+        
+        .section-card {
+            padding: 1.5rem;
+        }
+        
+        .important-card {
+            padding: 1.5rem;
+        }
+    }
+
+    /* Liquid Logo z PFP */
+    .liquid-logo-container {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .pfp-logo {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 1px solid transparent;
+        background: linear-gradient(135deg, #6b9d7d, #527960, #4e6d2a) border-box;
+        box-shadow: 0 0 15px rgba(107, 157, 125, 0.5);
+        transition: all 0.3s ease;
+    }
+
+    .pfp-logo:hover {
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: 0 0 25px rgba(107, 157, 125, 0.8);
+    }
+
+    /* Live Status Box */
+    .live-status-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        z-index: 1000; /* Ensures it stays above other content */
+    }
+
+    .live-status {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-weight: 700;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        border: 2px solid transparent;
+        animation: status-pulse 2s infinite;
+    }
+
+    .live-status.live {
+        background: rgba(0, 255, 0, 0.1);
+        color: #00ff00;
+        border-color: rgba(0, 255, 0, 0.3);
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+    }
+
+    .live-status.offline {
+        background: rgba(255, 0, 0, 0.1);
+        color: #ff4444;
+        border-color: rgba(255, 0, 0, 0.3);
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+    }
+
+    @keyframes status-pulse {
+        0%, 100% {
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+        50% {
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+        }
+    }
+
+    .live-status.offline {
+        animation: none;
+    }
+
+    .status-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        animation: pulse 1.5s infinite;
+    }
+
+    .live-status.live .status-dot {
+        background: #00ff00;
+        box-shadow: 0 0 10px #00ff00;
+    }
+
+    .live-status.offline .status-dot {
+        background: #ff4444;
+        box-shadow: 0 0 10px #ff4444;
+        animation: none;
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+        50% {
+            transform: scale(1.3);
+            opacity: 0.8;
+        }
+    }
+
+    /* Responsywność dla status boxa */
+    @media (max-width: 992px) {
+        .live-status {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+        
+        .live-status-container {
+            gap: 10px;
+        }
+    }
+    </style>
+</head>
+<body>
+    <div class="live-status-container">
+        <div class="live-status" id="liveStatus">
+            <span class="status-dot"></span>
+            <span class="status-text">...</span>
+        </div>
+    </div>
+    <!-- Liquid Navbar -->
+    <nav class="liquid-nav" id="liquidNav">
+        <div class="nav-container">
+            <div class="liquid-logo-container">
+                <img src="./pfp.webp" alt="Profile" class="pfp-logo">
+                <a href="#" class="liquid-logo">MRCIOS</a>
+            </div>
+            
+            <div class="liquid-hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <ul class="liquid-menu" id="navMenu">
+                <li><a href="./index.html" style="font-weight: 800;">STRONA GŁÓWNA</a></li>
+                <li><a href="./wygrane.html">WASZE WYGRANE</a></li>
+                <li><a href="./giveaways.html">ROZDANIA</a></li>
+                <li><a href="./wplacanie.html" class="active">JAK WPŁACAĆ/WYPŁACAĆ?</a></li>
+                <li><a href="./blokady.html">JAK OBEJŚĆ BLOKADY?</a></li>
+                <li><a href="./sociale.html">SOCIALE</a></li>
+                <li><a href="./kontakt.html">KONTAKT</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main">
+        <div class="instructions-container">
+            <div class="hero-section">
+                <h1>Jak wpłacać i wypłacać środki</h1>
+                <p class="intro-text">Kompleksowy przewodnik po metodach płatności i wypłat w kasynach kryptowalutowych</p>
+            </div>
+
+            <div class="content-grid">
+                <!-- WPŁATY -->
+                <div class="section-card">
+                    <h2 class="section-title">💰 Jak WPŁACAĆ poprzez krypto</h2>
+                    
+                    <div class="method-box">
+                        <h3>ByBit - giełda</h3>
+                        <p>Zaufana giełda kryptowalutowa. Można kupować krypto w złotówkach BLIKiem.</p>
+                    </div>
+                    
+                    <div class="method-box">
+                        <h3>Binance - giełda</h3>
+                        <p>Popularna giełda, doładowanie w euro/dolarach kartą Revoluta.</p>
+                    </div>
+                    
+                    <div class="method-box">
+                        <h3>Trust Wallet - aplikacja</h3>
+                        <p>Prywatny portfel bez weryfikacji, kupno krypto przez Google Pay.</p>
+                    </div>
+                    
+                    <div class="method-box">
+                        <h3>Revolut</h3>
+                        <p>Ograniczona ilość kryptowalut, ale proste w użyciu.</p>
+                    </div>
+                    
+                    <div class="method-box">
+                        <h3>Crypto.com</h3>
+                        <p>Giełda z aplikacją mobilną i kartą płatniczą.</p>
+                    </div>
+                    
+                    <div class="warning">
+                        <strong>⚠️ Uwaga:</strong> Zawsze sprawdzaj adres odbiorcy przed wysłaniem krypto!
+                    </div>
+                </div>
+
+                <!-- WYPŁATY -->
+                <div class="section-card">
+                    <h2 class="section-title">💵 Jak WYPŁACAĆ z krypto do gotówki</h2>
+                    
+                    <div class="method-box">
+                        <h3>ZEN - najmniejsze fee na kartę</h3>
+                        <p>Wypłata przez Binance/ByBit → wymiana na PLN → wypłata na ZEN w kilka sekund.</p>
+                        <span class="fee-label">Bardzo niskie fee</span>
+                    </div>
+                    
+                    <div class="method-box">
+                        <h3>Revolut</h3>
+                        <p>Proste rozwiązanie dla mniejszych kwot, wymiana krypto na fiat w aplikacji.</p>
+                        <span class="fee-label">Dla mało obeznanych</span>
+                    </div>
+                    
+                    <div class="method-box">
+                        <h3>Crypto.com</h3>
+                        <p>Zamów kartę, wpłać krypto, doładuj kartę i wypłacaj w bankomatach.</p>
+                    </div>
+                    
+                    <div class="method-box">
+                        <h3>Bitomaty - najmniejsze fee do gotówki</h3>
+                        <p>Do 1000 EUR dziennie bez weryfikacji. Fee przy 500 USDT to ~4-5 PLN.</p>
+                        <span class="fee-label">Najtańsza gotówka</span>
+                    </div>
+                    
+                    <div class="method-box">
+                        <h3>Cashify</h3>
+                        <p>Wizyta w placówce, do 1000 EUR bez weryfikacji.</p>
+                        <span class="fee-label">Wyższe opłaty</span>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h4>Bezpieczne wypłaty z kasyna:</h4>
+                        <p><strong>Kasyno → Crypto.com → Bankomat</strong> (najprostszy sposób)</p>
+                        <p><strong>Kasyno → Binance/ByBit → Zen → Bankomat</strong> (niskie opłaty)</p>
+                        <p class="tip">Zawsze używaj Trust Wallet jako pośrednika dla większego bezpieczeństwa!</p>
+                    </div>
+                </div>
+
+                <!-- WAŻNE INFORMACJE -->
+                <div class="important-card">
+                    <h2>‼️ WAŻNE INFORMACJE</h2>
+                    <ul>
+                        <li>Zawsze sprawdzaj adres i chain (np. TRC20 dla USDT)</li>
+                        <li>Miej odpowiednią walutę na opłaty transakcyjne (TRX dla TRC20, ETH dla ERC20)</li>
+                        <li>Dla dużych kwot rozważ wypłatę za granicą (brak/mniejsze opodatkowanie)</li>
+                        <li>Używaj prywatnych portfeli (Trust Wallet) jako bufora bezpieczeństwa</li>
+                        <li>Zapisuj recovery seed w bezpiecznym miejscu</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>
+            <b style="color: #fff;">Ważna informacja:</b> Ta strona internetowa prezentuje informacje o ekskluzywnych kasynach oraz zawiera odnośniki partnerskie, które są przeznaczone wyłącznie dla osób przebywających w regionach, gdzie internetowe gry losowe są dozwolone przez prawo.
+Obowiązkiem użytkowników jest upewnienie się, że ich aktywność jest zgodna z lokalnymi przepisami. Nie zachęcamy ani nie popieramy nielegalnych form hazardu.
+Zanim skorzystasz z jakichkolwiek ofert przedstawionych na tej stronie, gorąco rekomendujemy zweryfikowanie legalności hazardu online w Twojej lokalizacji.
+        </p>
+    </footer>
+
+    <script>
+    // Navbar scroll effect
+    const liquidNav = document.getElementById('liquidNav');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            liquidNav.classList.add('scrolled');
+        } else {
+            liquidNav.classList.remove('scrolled');
+        }
+    });
+
+    // Liquid Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+    
+    // Close menu when clicking links
+    const navLinks = document.querySelectorAll('.liquid-menu a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+            
+            // Update active link
+            navLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+        });
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (event) => {
+        const isClickInsideNav = navMenu.contains(event.target) || hamburger.contains(event.target);
+        
+        if (!isClickInsideNav && navMenu.classList.contains('active')) {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }
+    });
+
+    // Kick API Live Status Check
+    async function checkKickLiveStatus() {
+        const liveStatus = document.getElementById('liveStatus');
+        const statusText = document.querySelector('.status-text');
+        
+        try {
+            // Zastąp 'mrcios' nazwą twojego kanału na Kick
+            const kickUsername = 'mr-cios';
+            
+            // Kick API endpoint - użyjemy GraphQL API Kicka
+            const response = await fetch(`https://kick.com/api/v1/channels/${kickUsername}`);
+            
+            if (!response.ok) {
+                throw new Error('Nie udało się pobrać danych');
+            }
+            
+            const data = await response.json();
+            
+            if (data.livestream && data.livestream.is_live) {
+                // Streamer jest live
+                liveStatus.className = 'live-status live';
+                statusText.textContent = 'LIVE';
+                
+                // Opcjonalnie: pobierz tytuł streamu
+                if (data.livestream.session_title) {
+                    liveStatus.setAttribute('title', data.livestream.session_title);
+                }
+            } else {
+                // Streamer jest offline
+                liveStatus.className = 'live-status offline';
+                statusText.textContent = 'OFFLINE';
+            }
+            
+        } catch (error) {
+            console.error('Błąd pobierania statusu Kick:', error);
+            liveStatus.className = 'live-status offline';
+            statusText.textContent = 'OFFLINE';
+        }
+    }
+
+    // Sprawdź status przy załadowaniu strony
+    document.addEventListener('DOMContentLoaded', checkKickLiveStatus);
+    
+    // Odświeżaj status co 60 sekund
+    setInterval(checkKickLiveStatus, 60000);
+</script>
+</body>
+
+</html>
+
