@@ -244,16 +244,8 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .double-box-row {
-            margin-top: 75px;
-        }
-
         /* ===== RESPONSYWNOŚĆ MOBILE ===== */
         @media (max-width: 992px) {
-            .double-box-row {
-                margin-top: 25px;
-            }
-
             body {
                 background-image: url('./background.png');
             }
@@ -354,6 +346,7 @@
             gap: 30px;
             width: 100%;
             flex-wrap: wrap; /* na mniejszych ekranach przejdą pod siebie */
+            margin-bottom: 50px;
         }
 
         /* Karta promocyjna - w pełni responsywna + GLOW + LINIA GRADIENTOWA */
@@ -739,6 +732,112 @@
             font-weight: 900;
         }
 
+        /* ===== SEKCJA NAJLEPSZE WYGRANE ===== */
+        .wins-section {
+            width: 100%;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .section-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #bbff00, #ddff1d, #bbff00, transparent);
+            max-width: 300px;
+        }
+
+        .divider-text {
+            font-size: 28px;
+            font-weight: 900;
+            padding: 0 25px;
+            color: white;
+            text-shadow: 0 0 15px rgba(187, 255, 0, 0.5);
+            letter-spacing: 3px;
+            background: linear-gradient(135deg, #bbff00, #ddff1d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .wins-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .win-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 1/1;
+            border: 3px solid transparent #ddff1d;
+            background: linear-gradient(135deg, #4141418e, #191a177c) border-box;
+            box-shadow: 0 0 20px rgba(187, 255, 0, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .win-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 0 35px rgba(187, 255, 0, 0.5);
+            border: 3px solid transparent;
+        }
+
+        .win-image {
+            width: 100%;
+            height: 100%;
+            object-fit:contain;
+            display: block;
+            transition: all 0.4s ease;
+        }
+
+        .win-card:hover .win-image {
+            transform: scale(1.08);
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        .win-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(10, 15, 10, 0.95), transparent);
+            padding: 25px 20px 15px;
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .win-card:hover .win-overlay {
+            transform: translateY(0);
+        }
+
+        .win-amount {
+            font-size: 22px;
+            font-weight: 900;
+            color: #bbff00;
+            text-shadow: 0 0 15px rgba(187, 255, 0, 0.5);
+            margin-bottom: 5px;
+        }
+
+        .win-game {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
         /* ===== MODAL WIEKU ===== */
         .age-modal {
             position: fixed;
@@ -996,6 +1095,22 @@
             .double-box-row {
                 gap: 20px;
             }
+
+            /* Wygrane na mobile */
+            .wins-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+                max-width: 400px;
+            }
+
+            .divider-text {
+                font-size: 22px;
+                padding: 0 15px;
+            }
+
+            .divider-line {
+                max-width: 100px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1049,6 +1164,23 @@
 
             .footer-copyright {
                 font-size: 11px;
+            }
+
+            .divider-text {
+                font-size: 18px;
+                padding: 0 10px;
+            }
+
+            .win-amount {
+                font-size: 18px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .wins-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+                max-width: 800px;
             }
         }
 
@@ -1105,7 +1237,7 @@
     <!-- Główna zawartość -->
     <div class="main">
         <div class="content-wrapper">
-            <!-- === NOWY RZĄD: DWA BOXY OBOK SIEBIE NA PC === -->
+            <!-- === RZĄD: DWA BOXY OBOK SIEBIE NA PC === -->
             <div class="double-box-row">
                 <!-- Karta promocyjna -->
                 <div class="promo-card-container">
@@ -1205,6 +1337,42 @@
                     </div>
                 </div>
             </div><!-- end double-box-row -->
+
+            <!-- === NOWA SEKCJA: NAJLEPSZE WYGRANE === -->
+            <div class="wins-section">
+                <div class="section-divider">
+                    <div class="divider-line"></div>
+                    <span class="divider-text">NAJLEPSZE WYGRANE</span>
+                    <div class="divider-line"></div>
+                </div>
+
+                <div class="wins-grid">
+                    <!-- Win 1 -->
+                    <div class="win-card">
+                        <img src="./win1.png" alt="Win 1" class="win-image">
+                        <div class="win-overlay">
+                            <div class="win-amount">153.796 PLN</div>
+                            <div class="win-game">JACKPOT HUNT</div>
+                        </div>
+                    </div>
+                    <!-- Win 2 -->
+                    <div class="win-card">
+                        <img src="./win2.png" alt="Win 2" class="win-image">
+                        <div class="win-overlay">
+                            <div class="win-amount">61.210 PLN</div>
+                            <div class="win-game">MENTAL</div>
+                        </div>
+                    </div>
+                    <!-- Win 3 -->
+                    <div class="win-card">
+                        <img src="./win3.png" alt="Win 3" class="win-image">
+                        <div class="win-overlay">
+                            <div class="win-amount">25.000 PLN</div>
+                            <div class="win-game">GATES OF OLYMPUS</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
